@@ -65,8 +65,8 @@ The `DiceGame` class calls `dicePlayer.roll()` in order to complete the `play()`
 The first step towards decoupling our code is to **invert** the control flow by using the [Factory pattern](https://refactoring.guru/design-patterns/factory-method) to implement IoC.
 
 1. Examine the `PlayerFactory` and `GameFactory` classes.
-2. Replace the `new DicePlayer()` statements in `DiceGame` with `PlayerFactory.create()`.
-3. Replace the `new DiceGame()` statement in `App` with `GameFactory.create()`.
+2. Replace the `new DicePlayer()` statements in `DiceGame` with `PlayerFactory.create()`. to ensure DiceGame does not depend on DicePlayer which depends on Player btu that it only depends on Player
+3. Replace the `new DiceGame()` statement in `App` with `GameFactory.create()`. instead of App depending on DiceGame which depends on Game, make it only depend on Gamefactory
 4. Run the application again to confirm you get the same output as before.
 5. Commit your changes.
 
@@ -78,7 +78,7 @@ The Dependency Inversion Principle states that:
 > 1. High-level modules should not depend on low-level modules. Instead, both should depend on abstractions.
 > 2. Abstractions should not depend on details. Details should depend on abstractions.
 
-Currently, our `DiceGame` class (high-level module) depends on `DicePlayer` (low-level module). This is a violation of the Dependency Inversion Principle, so we must replace this concrete dependency with an abstraction (interface or abstract class).
+Currently, our `DiceGame` class (high-level module) depends on `DicePlayer` (low-level module) due to names (setting & getting names) & rolling the dice (play method). This is a violation of the Dependency Inversion Principle, so we must replace this concrete dependency with an abstraction (interface or abstract class).
 
 1. Examine the `Game` and `Player` interfaces.
 2. Modify the `DiceGame` class to implement the `Game` interface and the `DicePlayer` class to implement the `Player` interface.
