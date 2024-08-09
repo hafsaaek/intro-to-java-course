@@ -18,3 +18,4 @@ public interface Player extends Rollable {
      */
     void setName(String name);
 }
+

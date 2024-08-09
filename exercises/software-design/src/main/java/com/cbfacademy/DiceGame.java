@@ -1,17 +1,21 @@
 package com.cbfacademy;
 
-public class DiceGame {
-    private DicePlayer player1;
-    private DicePlayer player2;
+public class DiceGame implements Game{
+    private Player player1;
+    private Player player2;
     private int targetScore = 30;
 
-    public DiceGame() {
-        player1 = new DicePlayer();
-        player2 = new DicePlayer();
-        player1.setName("Player 1");
-        player2.setName("Player 2");
+    public DiceGame(Player player1, Player player2) {
+        // The DiceGame class was creating its own players using a factory method. This meant that DiceGame was tightly coupled to a specific way of creating players.
+        // By passing players directly to the constructor, we make DiceGame more flexible. We can now easily use different kinds of players (e.g., human players, AI players) without changing the DiceGame class
+       // Update constructor to accept two Player instances
+        this.player1 = player1;
+        this.player2 = player2;
+        this.player1.setName("Player 1");
+        this.player2.setName("Player 2");
     }
-
+    // By injecting the Player instances into the DiceGame constructor, we have now successfully decoupled DiceGame from DicePlayer.
+    
     public String play() {
         int score1 = 0;
         int score2 = 0;
