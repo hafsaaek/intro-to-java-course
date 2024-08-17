@@ -1,0 +1,57 @@
+// Define an interface named Teacher. This is like a contract that any teacher should follow.
+public interface Teacher {
+    // This method must be implemented by any class that claims to be a Teacher.
+    void teach();
+}
+
+// Implement the Teacher interface with a MathTeacher class.
+public class MathTeacher implements Teacher {
+    // This method provides the actual behavior of teaching math.
+    public void teach() {
+        System.out.println("Teaching Math..."); // Prints "Teaching Math..." to the console.
+    }
+}
+
+// Implement the Teacher interface with a ScienceTeacher class.
+public class ScienceTeacher implements Teacher {
+    // This method provides the actual behavior of teaching science.
+    public void teach() {
+        System.out.println("Teaching Science..."); // Prints "Teaching Science..." to the console.
+    }
+}
+
+// Define a class named School.
+public class School {
+    // Private variable to hold a reference to a Teacher object.
+    private Teacher teacher;
+
+    // Constructor for the School class that takes a Teacher object as a parameter.
+    public School(Teacher teacher) {
+        this.teacher = teacher; // Set the Teacher instance passed to the constructor.
+    }
+
+    // Method to start classes, which uses the Teacher object to teach.
+    public void startClasses() {
+        teacher.teach(); // Calls the teach method on the Teacher object, which prints the teaching message.
+    }
+}
+
+// The main class where the program starts execution.
+public class Main {
+    public static void main(String[] args) {
+        // Create an instance of SimpleContainer. This container will help us manage our objects.
+        SimpleContainer container = new SimpleContainer();
+        
+        // Register that the Teacher interface should use the MathTeacher class implementation.
+        container.register(Teacher.class, MathTeacher.class); // Maps Teacher to MathTeacher.
+        
+        // Get an instance of Teacher from the container. It will be an instance of MathTeacher.
+        Teacher teacher = container.get(Teacher.class); // Retrieves an instance of MathTeacher.
+        
+        // Create a School object, injecting the Teacher instance we got from the container.
+        School school = new School(teacher); // Pass the MathTeacher instance to the School constructor.
+        
+        // Start classes in the School, which will use the injected Teacher to teach.
+        school.startClasses(); // Calls startClasses which uses the MathTeacher to print "Teaching Math..."
+    }
+}
